@@ -2,6 +2,7 @@ const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const sa = require('./firebase-sa.json');
 
+
 initializeApp({
   credential: cert(sa)
 });
