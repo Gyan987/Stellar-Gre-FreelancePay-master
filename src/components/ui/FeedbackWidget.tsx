@@ -1,0 +1,123 @@
+"use client";
+
+import { useState } from "react";
+import { m, AnimatePresence } from "framer-motion";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase/config";
+import { useWallet } from "@/hooks/useWallet";
+import { CheckCircle2, Star, MessageSquare, X } from "lucide-react";
+
+export function FeedbackWidget() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const { publicKey } = useWallet();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!publicKey) {
+      alert("Please connect your wallet first");
+      return;
+    }
+    
+    setIsSubmitting(true);
+    try {
+      await addDoc(collection(db, "feedback"), {
+        walletAddress: publicKey,
+        rating,
+        comment,
+        createdAt: serverTimestamp(),
+      });
+      setSubmitted(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setSubmitted(false);
+        setRating(0);
+        setComment("");
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("Failed to submit feedback. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-24 md:bottom-6 right-6 z-50">
+      <AnimatePresence>
+        {isOpen && (
+          <m.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="absolute bottom-16 right-0 w-80 bg-bg-base border-2 border-edge-neutral shadow-neopop p-6 mb-4"
+          >
+            {submitted ? (
+              <div className="text-center py-6">
+                <CheckCircle2 className="w-10 h-10 text-accent mx-auto mb-2" />
+                <h3 className="font-headline-sm font-bold text-ink-primary uppercase tracking-widest">Thank you!</h3>
+                <p className="text-ink-secondary text-sm mt-1 font-mono-data">
+                  Your feedback helps us improve.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <h3 className="font-ui-label font-bold text-ink-primary mb-4 uppercase tracking-widest text-sm">
+                  Send Feedback
+                </h3>
+                <div className="flex gap-2 mb-6">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setRating(star)}
+                      className={`transition-colors ${
+                        star <= rating ? "text-accent" : "text-edge-neutral hover:text-ink-tertiary"
+                      }`}
+                    >
+                      <Star className="w-6 h-6" fill={star <= rating ? "currentColor" : "none"} />
+                    </button>
+                  ))}
+                </div>
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Tell us what you think..."
+                  className="w-full bg-transparent p-3 border-2 border-edge-neutral text-ink-primary text-sm mb-4 focus:outline-none focus:border-accent transition-colors min-h-[100px] resize-none font-ui-label placeholder:text-ink-tertiary"
+                  required
+                />
+                <div className="flex justify-end gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                    className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-ink-secondary hover:text-ink-primary transition-colors border-2 border-transparent hover:border-edge-neutral"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || rating === 0}
+                    className="bg-ink-primary text-bg-base px-6 py-2 border-2 border-ink-primary text-xs font-bold uppercase tracking-widest hover:bg-ink-primary/90 disabled:opacity-50 transition-colors flex items-center gap-2"
+                  >
+                    {isSubmitting ? "Sending..." : "Send"}
+                  </button>
+                </div>
+              </form>
+            )}
+          </m.div>
+        )}
+      </AnimatePresence>
+
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="bg-ink-primary text-bg-base border-2 border-ink-primary w-14 h-14 flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] hover:translate-y-[2px] hover:translate-x-[2px] hover:shadow-[2px_2px_0px_0px_rgba(20,20,20,1)] active:translate-y-[4px] active:translate-x-[4px] active:shadow-none transition-all"
+        aria-label="Feedback"
+      >
+        {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+      </button>
+    </div>
+  );
+}

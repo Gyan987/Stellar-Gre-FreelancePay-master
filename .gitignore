@@ -1,0 +1,70 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# stellar tooling
+stellar-bin/
+stellar-cli.tar.gz
+rustup-init.exe
+
+# audit / diagnostics
+doctor_run*.json
+doctor_run*.txt
+doctor.json
+doctor.config.json
+react_doctor_report.*
+react-doctor-*.txt
+lint-errors-*.json
+lint-results*.json
+lint-results*.txt
+report.json
+
+# test artifacts
+playwright-report/
+test-results/
+
+# design assets (non-code)
+design_b64*.txt
+contracts/escrow/target/
+contracts/liquidity_pool/target/
+functions/node_modules/
+functions/lib/
+functions/package-lock.json

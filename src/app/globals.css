@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────
+   FreelancePay - NeoPOP Refined / Eclipse Deep
+   ───────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Light Mode Surfaces (Flipped) */
+  --bg-void: #f5f2ec;
+  --bg-base: #faf8f4;
+  --bg-raised: #ffffff;
+  --bg-overlay: #f0ece3;
+  --bg-interactive: #e6e2d8;
+
+  /* Light Mode Ink */
+  --ink-primary: #17140f;
+  --ink-secondary: #6b6560;
+  --ink-tertiary: #a49e96;
+  --ink-inverse: #f0ece4;
+
+  /* Accent - Trust Teal */
+  --accent: #2dd4bf;
+  --accent-pressed: #14b8a4;
+  --accent-deep: #0d9488;
+  --accent-glow: rgba(45,212,191,0.10);
+
+  /* Status Colors */
+  --status-released: #4ade80;
+  --status-submitted: #fbbf24;
+  --status-disputed: #f87171;
+  --status-draft: #94a3b8;
+
+  /* NeoPOP Depth Edges */
+  --edge-teal: #147a73;
+  --edge-neutral: #d4cfc7;
+  --edge-raised: #e0dbd3;
+}
+
+html.dark {
+  color-scheme: dark;
+
+  /* Dark Mode Surfaces (Default intent) */
+  --bg-void: #0e0d0c;
+  --bg-base: #141311;
+  --bg-raised: #1c1a18;
+  --bg-overlay: #252320;
+  --bg-interactive: #2e2b28;
+
+  /* Dark Mode Ink */
+  --ink-primary: #f0ece4;
+  --ink-secondary: #a49e96;
+  --ink-tertiary: #5e5850;
+  --ink-inverse: #0e0d0c;
+
+  /* NeoPOP Depth Edges */
+  --edge-teal: #147a73;
+  --edge-neutral: #0a0908;
+  --edge-raised: #080706;
+}
+
+@theme inline {
+  /* Colors */
+  --color-bg-void: var(--bg-void);
+  --color-bg-base: var(--bg-base);
+  --color-bg-raised: var(--bg-raised);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-interactive: var(--bg-interactive);
+
+  --color-ink-primary: var(--ink-primary);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+  --color-ink-inverse: var(--ink-inverse);
+
+  --color-accent: var(--accent);
+  --color-accent-pressed: var(--accent-pressed);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-glow: var(--accent-glow);
+
+  --color-status-released: var(--status-released);
+  --color-status-submitted: var(--status-submitted);
+  --color-status-disputed: var(--status-disputed);
+  --color-status-draft: var(--status-draft);
+
+  --color-edge-teal: var(--edge-teal);
+  --color-edge-neutral: var(--edge-neutral);
+  --color-edge-raised: var(--edge-raised);
+
+  /* Spacing */
+  --spacing-gutter: 24px;
+  --spacing-section-gap: 32px;
+  --spacing-card-padding: 16px;
+  --spacing-margin-desktop: 48px;
+  --spacing-margin-mobile: 16px;
+  --spacing-base: 4px;
+
+  /* Radius (Schema) */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Fonts */
+  --font-headline-lg: var(--font-geist-sans), sans-serif;
+  --font-section-title: var(--font-geist-sans), sans-serif;
+  --font-card-title: var(--font-geist-sans), sans-serif;
+  --font-body-base: var(--font-outfit), var(--font-satoshi), sans-serif;
+  --font-ui-label: var(--font-outfit), var(--font-satoshi), sans-serif;
+  --font-mono-data: var(--font-jetbrains-mono), monospace;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────── */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-void);
+  color: var(--ink-secondary);
+  font-family: var(--font-outfit), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+}
+
+/* ─── Typography utilities ───────────────────────────────────────── */
+@layer utilities {
+  .text-headline-lg {
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+  }
+  .text-section-title {
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .text-card-title {
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  .text-body-base {
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 400;
+  }
+  .text-ui-label {
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+  }
+  .text-mono-data {
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+  }
+  /* KPI number */
+  .text-kpi {
+    font-size: 36px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ─── NeoPOP Components ──────────────────────────────────────────── */
+
+/* NeoPOP Teal Button */
+.neopop-button-teal {
+  position: relative;
+  background: var(--accent);
+  color: var(--ink-inverse);
+  border-radius: 12px;
+  transform: translateY(0);
+  transition: transform 80ms cubic-bezier(0.16, 1, 0.3, 1), background-color 80ms ease;
+}
+.neopop-button-teal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: var(--edge-teal);
+  transform: translate(4px, 4px);
+  z-index: -1;
+  transition: opacity 80ms ease, transform 80ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.neopop-button-teal:hover {
+  background: var(--accent-deep);
+}
+.neopop-button-teal:active {
+  transform: translate(4px, 4px);
+}
+.neopop-button-teal:active::after {
+  transform: translate(0, 0);
+  opacity: 0;
+}
+.neopop-button-teal:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+.neopop-button-teal:disabled::after {
+  transform: translate(4px, 4px);
+  opacity: 1;
+}
+
+/* Base Cards */
+.card {
+  background: var(--bg-raised);
+  border: 1px solid rgba(240, 236, 228, 0.08);
+  border-radius: 16px;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.card-interactive:hover {
+  border-color: rgba(240, 236, 228, 0.14);
+  background: var(--bg-overlay);
+}
+
+html:not(.dark) .card {
+  border-color: rgba(23, 20, 15, 0.08);
+}
+html:not(.dark) .card-interactive:hover {
+  border-color: rgba(23, 20, 15, 0.14);
+}
+
+/* Active Rows */
+.row-active {
+  background: var(--accent-glow);
+  border-left: 2px solid var(--accent);
+}
+
+/* Dividers */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(240, 236, 228, 0.06);
+}
+html:not(.dark) .divider {
+  border-top-color: rgba(23, 20, 15, 0.06);
+}
+
+/* Glassmorphism Refraction Effect (Liquid Glass) */
+.glass-panel {
+  background: var(--bg-overlay);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+html:not(.dark) .glass-panel {
+  border-color: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
