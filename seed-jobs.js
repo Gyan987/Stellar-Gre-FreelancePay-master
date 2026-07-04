@@ -6,6 +6,7 @@ initializeApp({
   credential: cert(sa)
 });
 
+
 const db = getFirestore();
 
 async function seedJobs() {
