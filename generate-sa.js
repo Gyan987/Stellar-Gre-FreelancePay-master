@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+
 const sa = {
   type: "service_account",
   project_id: process.env.FIREBASE_PROJECT_ID,
