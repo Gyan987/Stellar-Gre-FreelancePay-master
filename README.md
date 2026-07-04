@@ -3,7 +3,7 @@
 > Trustless Milestone Escrow & Cross-Border Payouts on Stellar
 
 **Author:** codeREDxbt  
-**GitHub:** [codeREDxbt]https://github.com/gyan987/Stellar-Gree-FreelancePay
+**GitHub:** [codeREDxbt]https://github.com/gyan987/Stellar-Gree-FreelancePay 
 
 ## Live Demo & Links
 - **Live Demo:** [freelancepayxbt.vercel.app](https://freelancepayxbt.vercel.app)
